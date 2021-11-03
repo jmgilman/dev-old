@@ -1,0 +1,8 @@
+---
+
+dotfiles:
+  - files/dotfiles/.bash_prompt
+  - files/dotfiles/.bashrc
+  - files/dotfiles/.exports
+  - files/dotfiles/.gitconfig
+  - .gitignore
