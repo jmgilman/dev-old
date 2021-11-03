@@ -1,9 +1,11 @@
 #!/usr/bin/env ansible-playbook
 ---
-
 - hosts: localhost
   connection: local
   vars_files:
     - vars.yml
   tasks:
     - include_tasks: tasks/dotfiles.yml
+    - include_tasks: tasks/brew.yml
+    - include_tasks: tasks/python.yml
+    - include_tasks: tasks/rust.yml

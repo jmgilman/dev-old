@@ -1,0 +1,24 @@
+---
+- name: Homebrew taps are tapped
+  homebrew_tap:
+    name: "{{ item }}"
+  with_items: "{{ brew.taps }}"
+
+- name: Homebrew and packages are up to date
+  homebrew:
+   update_homebrew: yes
+   upgrade_all: yes
+
+- name: Homebrew casks are up to date
+  homebrew_cask:
+    upgrade: yes
+
+- name: Homebrew packages are installed
+  homebrew:
+    name: "{{ brew.packages }}"
+    state: present
+
+- name: Homebrew casks are installed
+  homebrew_cask:
+    name: "{{ brew.casks }}"
+    state: present

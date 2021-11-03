@@ -1,0 +1,14 @@
+---
+- name: Rustup is installed
+  shell: command -v rustup >/dev/null 2>&1
+  register: installed
+  ignore_errors: yes
+
+- name: Install rustup
+  block:
+    - ansible.builtin.get_url:
+        url: https://sh.rustup.rs
+        dest: /tmp/rustup.sh
+        mode: '0666'
+    - ansible.builtin.shell: /tmp/rustup.sh
+  when: installed.rc

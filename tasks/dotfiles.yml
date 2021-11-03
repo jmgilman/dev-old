@@ -1,5 +1,4 @@
 ---
-# tasks for updating dot files
 - name: Dotfiles are up to date
   copy:
     src: "files/dotfiles/{{ item }}"

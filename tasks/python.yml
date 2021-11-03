@@ -1,0 +1,12 @@
+---
+- name: Pip is up to date
+  pip:
+   name: ['pip', 'setuptools']
+   executable: pip3
+   state: latest
+
+- name: Python packages are installed and updated
+  pip:
+   name: "{{ python.packages }}"
+   state: latest
+   executable: pip3

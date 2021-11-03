@@ -1,8 +1,21 @@
 ---
-
+brew:
+  casks:
+    - google-chrome
+    - iterm2
+  packages:
+    - git
+    - gnupg
+    - python
+  taps:
+  - jmgilman/homebrew-apps
 dotfiles:
   - files/dotfiles/.bash_prompt
   - files/dotfiles/.bashrc
   - files/dotfiles/.exports
   - files/dotfiles/.gitconfig
   - .gitignore
+python:
+  packages:
+    - beancount
+    - fava
