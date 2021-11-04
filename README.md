@@ -77,3 +77,13 @@ Your decision? 5
 # Configure git
 $> git config --global user.signingkey 2597B7B8631DA129
 ```
+
+## Nix
+
+At the time of this writing official support for the M1 architecture is covered
+by the 2.4 preview build. Since this is likely subject to change, the installation
+process should be done manually until support is more mature.
+
+```
+$> curl -L https://releases.nixos.org/nix/nix-2.4pre-rc1/install | sh
+```
