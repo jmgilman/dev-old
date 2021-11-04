@@ -7,14 +7,14 @@
 # Installs the given package name using Homebrew
 installWithBrew() {
     echo "Check if $1 is installed..."
-    brew list $1 &> /dev/null
+    /opt/homebrew/bin/brew list $1 &> /dev/null
     if [[ $? -gt 0 ]]
     then
         echo "Installing $1..."
-        brew install $1
+        /opt/homebrew/bin/brew install $1
     else
         echo "Upgrading $1..."
-        brew upgrade $1
+        /opt/homebrew/bin/brew upgrade $1
     fi
 }
 
@@ -24,7 +24,7 @@ xcode-select --install &> /dev/null
 # Only run Homebrew installer if it's not found
 echo "Checking if Homebrew is installed..."
 command -v brew &> /dev/null
-if [[ $? -gt 0 ]]
+if [[ ! -f "/opt/homebrew/bin/brew" ]]
 then
     echo "Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -43,4 +43,25 @@ do
     installWithBrew ${DEPEND}
 done
 
-echo "Done!"
+# Install Ansible modules
+/opt/homebrew/bin/ansible-galaxy install git+https://github.com/c0sco/ansible-modules-bitwarden
+
+# Install bitwarden
+brew install bitwarden-cli
+
+# Check Bitwarden status
+STATUS=$(bw status | jq -r .status)
+
+# Login to Bitwarden
+if [ "$STATUS" = "unauthenticated" ]; then
+    export BW_SESSION=$(bw login --raw)
+fi
+
+# Run playbook
+# /opt/homebrew/bin/ansible-playbook playbook.yml
+
+# Change default shell to bash
+# sudo sh -c 'echo "/opt/homebrew/bin/bash" >> /etc/shells'
+# chsh -s /opt/homebrew/bin/bash
+
+# echo "Done! Restart the shell for changes to take effect."

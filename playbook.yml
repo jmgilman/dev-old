@@ -2,10 +2,24 @@
 ---
 - hosts: localhost
   connection: local
+  roles:
+    - ansible-modules-bitwarden
   vars_files:
     - vars.yml
   tasks:
-    - include_tasks: tasks/dotfiles.yml
-    - include_tasks: tasks/brew.yml
-    - include_tasks: tasks/python.yml
-    - include_tasks: tasks/rust.yml
+    - import_tasks: tasks/dotfiles.yml
+      tags: dotfiles
+    - import_tasks: tasks/brew.yml
+      tags: brew
+    - import_tasks: tasks/python.yml
+      tags: python
+    - import_tasks: tasks/rust.yml
+      tags: rust
+    - import_tasks: tasks/other.yml
+      tags: other
+    - include_tasks: 
+        file: tasks/ssh.yml
+        apply:
+          tags: ssh
+      with_items: "{{ ssh }}"
+      tags: ssh

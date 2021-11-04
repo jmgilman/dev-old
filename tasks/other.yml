@@ -1,0 +1,10 @@
+---
+- name: Keybase is installed
+  ansible.builtin.stat:
+    path: "{{ lookup('env','HOME') }}/bin/keybase"
+  register: keybase
+- name: Install keybase CLI
+  ansible.builtin.shell: go get github.com/keybase/client/go/keybase && go install -tags production github.com/keybase/client/go/keybase
+  environment:
+    GO111MODULE: auto
+  when: not keybase.stat.exists

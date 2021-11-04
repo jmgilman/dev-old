@@ -1,0 +1,37 @@
+---
+- name: SSH directory exists
+  ansible.builtin.file:
+    path: "{{ lookup('env','HOME') }}/.ssh"
+    state: directory
+    mode: 0700
+- name: SSH config file is up to date
+  ansible.builtin.copy:
+    src: files/ssh/config
+    dest: "{{ lookup('env','HOME') }}/.ssh/config"
+- name: Default key exists
+  ansible.builtin.stat:
+    path: "{{ lookup('env','HOME') }}/.ssh/id_ed25519"
+  register: default_key
+- name: Generate default key
+  ansible.builtin.shell: 'ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519 -C "joshuagilman@gmail.com" -q -N ""'
+  when: not default_key.stat.exists
+
+# A workaround for detecting vault status: https://github.com/c0sco/ansible-modules-bitwarden/issues/21
+- block:
+    - set_fact:
+        status: "{{ lookup('bitwarden') }}"
+        unlocked: true
+  rescue:
+    - set_fact:
+        unlocked: false
+- block:
+    - set_fact:
+        home: "{{ lookup('env','HOME') }}"
+        key: "{{ lookup('bitwarden', item, field='item') }}"
+    - name: "Download {{ item }}"
+      debug:
+        msg: "{{ lookup('bitwarden', item,  itemid=key.id, attachments=true, output=home+'/.ssh/'+item ) }}"
+    - name: "Download {{ item }}.pub"
+      debug:
+        msg: "{{ lookup('bitwarden', item+'.pub',  itemid=key.id, attachments=true, output=home+'/.ssh/'+item+'.pub' ) }}"
+  when: unlocked
