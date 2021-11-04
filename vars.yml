@@ -1,19 +1,26 @@
 ---
 brew:
   casks:
+    - docker
     - google-chrome
     - iterm2
     - visual-studio-code
   packages:
+    - awscli
     - bash
     - bash-completion
     - bitwarden-cli
+    - consul
     - git
     - gnupg
     - go
     - jq
     - lastpass-cli
+    - packer
+    - poetry
     - python
+    - terraform
+    - vault
   taps:
   - jmgilman/homebrew-apps
 dotfiles:

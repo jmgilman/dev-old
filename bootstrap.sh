@@ -21,6 +21,9 @@ installWithBrew() {
 # Homebrew requires xcode to be installed
 xcode-select --install &> /dev/null
 
+# Many things require Rosetta
+softwareupdate --install-rosetta
+
 # Only run Homebrew installer if it's not found
 echo "Checking if Homebrew is installed..."
 command -v brew &> /dev/null
