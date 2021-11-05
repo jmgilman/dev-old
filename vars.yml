@@ -4,6 +4,7 @@ brew:
     - docker
     - google-chrome
     - iterm2
+    - multipass
     - visual-studio-code
   packages:
     - awscli
@@ -20,6 +21,7 @@ brew:
     - poetry
     - python
     - terraform
+    - wget
     - vault
   taps:
   - jmgilman/homebrew-apps

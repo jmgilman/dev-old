@@ -9,6 +9,6 @@
     - ansible.builtin.get_url:
         url: https://sh.rustup.rs
         dest: /tmp/rustup.sh
-        mode: '0666'
-    - ansible.builtin.shell: /tmp/rustup.sh
+        mode: '0777'
+    - ansible.builtin.shell: /tmp/rustup.sh -y
   when: installed.rc
