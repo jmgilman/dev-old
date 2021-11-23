@@ -32,6 +32,7 @@ dotfiles:
   - .bash_profile
   - .bash_prompt
   - .bashrc
+  - .dev
   - .exports
   - .gitconfig
   - .gitignore

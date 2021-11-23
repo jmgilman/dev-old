@@ -61,10 +61,10 @@ if [ "$STATUS" = "unauthenticated" ]; then
 fi
 
 # Run playbook
-# /opt/homebrew/bin/ansible-playbook playbook.yml
+/opt/homebrew/bin/ansible-playbook playbook.yml
 
 # Change default shell to bash
-# sudo sh -c 'echo "/opt/homebrew/bin/bash" >> /etc/shells'
-# chsh -s /opt/homebrew/bin/bash
+sudo sh -c 'echo "/opt/homebrew/bin/bash" >> /etc/shells'
+chsh -s /opt/homebrew/bin/bash
 
-# echo "Done! Restart the shell for changes to take effect."
+echo "Done! Restart the shell for changes to take effect."
